@@ -1,14 +1,349 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+  <title>로또 번호 추첨소</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=SUIT:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0f172a;
+      --muted: #5b6475;
+      --paper: #f7f5f0;
+      --accent: #ff7a00;
+      --accent-2: #00b894;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+      --ring: rgba(15, 23, 42, 0.15);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "SUIT", system-ui, -apple-system, sans-serif;
+      color: var(--ink);
+      background: radial-gradient(1200px 600px at 10% 0%, #ffe5c7 0%, transparent 60%),
+                  radial-gradient(900px 500px at 100% 10%, #d1f7ef 0%, transparent 55%),
+                  linear-gradient(135deg, #fffdf8 0%, #f3f1ea 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px 64px;
+    }
+
+    .app {
+      width: min(980px, 100%);
+      display: grid;
+      gap: 24px;
+    }
+
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 24px;
+      background: #ffffffcc;
+      border: 1px solid #f2e9dc;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+
+    h1 {
+      font-family: "Black Han Sans", sans-serif;
+      font-size: clamp(32px, 4vw, 44px);
+      margin: 0;
+      letter-spacing: 1px;
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    button, label.toggle {
+      border: 1px solid var(--ring);
+      background: #fff;
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.2s ease;
+    }
+
+    button:hover, label.toggle:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+      border-color: rgba(15, 23, 42, 0.3);
+    }
+
+    button.primary {
+      background: linear-gradient(135deg, #ff7a00 0%, #ffb347 100%);
+      color: #1b1b1b;
+      border: none;
+    }
+
+    button.ghost {
+      background: transparent;
+    }
+
+    label.toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      color: var(--ink);
+      user-select: none;
+    }
+
+    label.toggle input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent-2);
+    }
+
+    .panel {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      border: 1px solid #f2e9dc;
+    }
+
+    .results {
+      display: grid;
+      gap: 20px;
+    }
+
+    .balls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      min-height: 64px;
+    }
+
+    .ball {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 18px;
+      color: #1c1c1c;
+      box-shadow: inset 0 -6px 12px rgba(0, 0, 0, 0.15), 0 6px 14px rgba(15, 23, 42, 0.2);
+      transform: scale(0);
+      animation: pop 0.4s ease forwards;
+    }
+
+    .ball.range-1 { background: #f9d65c; }
+    .ball.range-2 { background: #6ec1ff; }
+    .ball.range-3 { background: #ff7a7a; }
+    .ball.range-4 { background: #d5d8de; }
+    .ball.range-5 { background: #6ee7b7; }
+    .ball.bonus { outline: 3px dashed var(--accent); }
+
+    @keyframes pop {
+      0% { transform: scale(0); opacity: 0; }
+      70% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .history {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      max-height: 240px;
+      overflow: auto;
+    }
+
+    .history li {
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #f9f7f1;
+      border: 1px solid #efe6d8;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .history .numbers {
+      font-weight: 600;
+    }
+
+    .note {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 640px) {
+      .ball { width: 48px; height: 48px; font-size: 16px; }
+      header { padding: 18px; }
+      .panel { padding: 20px; }
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
-  <script defer type="text/javascript" src="/main.js"></script>
+  <main class="app">
+    <header>
+      <h1>로또 번호 추첨소</h1>
+      <div class="sub">버튼 한 번으로 1~45 랜덤 번호 6개를 추첨합니다. 오늘의 행운을 뽑아보세요.</div>
+      <div class="controls">
+        <button class="primary" id="drawBtn">번호 추첨하기</button>
+        <button class="ghost" id="copyBtn">결과 복사</button>
+        <button class="ghost" id="clearBtn">기록 지우기</button>
+        <label class="toggle">
+          <input type="checkbox" id="bonusToggle" checked>
+          보너스 번호 포함
+        </label>
+      </div>
+    </header>
+
+    <section class="panel results">
+      <div class="meta">
+        <span id="todayText"></span>
+        <span>자동 정렬 · 중복 없음</span>
+      </div>
+      <div class="balls" id="ballWrap" aria-live="polite" aria-label="추첨 결과"></div>
+      <div class="note">본 페이지는 랜덤 번호 생성기이며 실제 당첨과 무관합니다.</div>
+    </section>
+
+    <section class="panel">
+      <h2 style="margin-top: 0;">추첨 기록</h2>
+      <ul class="history" id="historyList"></ul>
+    </section>
+  </main>
+
+  <script>
+    const COUNT = 6;
+    const MAX = 45;
+
+    const drawBtn = document.getElementById("drawBtn");
+    const copyBtn = document.getElementById("copyBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const bonusToggle = document.getElementById("bonusToggle");
+    const ballWrap = document.getElementById("ballWrap");
+    const historyList = document.getElementById("historyList");
+    const todayText = document.getElementById("todayText");
+
+    const setToday = () => {
+      const now = new Date();
+      todayText.textContent = now.toLocaleDateString("ko-KR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        weekday: "short"
+      }) + " 추첨";
+    };
+
+    const rangeClass = (num) => {
+      if (num <= 10) return "range-1";
+      if (num <= 20) return "range-2";
+      if (num <= 30) return "range-3";
+      if (num <= 40) return "range-4";
+      return "range-5";
+    };
+
+    const drawNumbers = () => {
+      const pool = new Set();
+      while (pool.size < COUNT) {
+        pool.add(Math.floor(Math.random() * MAX) + 1);
+      }
+      const numbers = Array.from(pool).sort((a, b) => a - b);
+      let bonus = null;
+      if (bonusToggle.checked) {
+        do {
+          bonus = Math.floor(Math.random() * MAX) + 1;
+        } while (pool.has(bonus));
+      }
+      return { numbers, bonus };
+    };
+
+    const renderBalls = ({ numbers, bonus }) => {
+      ballWrap.innerHTML = "";
+      numbers.forEach((num, idx) => {
+        const ball = document.createElement("div");
+        ball.className = `ball ${rangeClass(num)}`;
+        ball.style.animationDelay = `${idx * 0.08}s`;
+        ball.textContent = num;
+        ballWrap.appendChild(ball);
+      });
+      if (bonus !== null) {
+        const bonusBall = document.createElement("div");
+        bonusBall.className = `ball bonus ${rangeClass(bonus)}`;
+        bonusBall.style.animationDelay = `${numbers.length * 0.08}s`;
+        bonusBall.textContent = bonus;
+        ballWrap.appendChild(bonusBall);
+      }
+    };
+
+    const addHistory = ({ numbers, bonus }) => {
+      const time = new Date().toLocaleTimeString("ko-KR", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false
+      });
+      const item = document.createElement("li");
+      const main = numbers.join(", ");
+      const bonusText = bonus !== null ? ` + ${bonus}` : "";
+      item.innerHTML = `<span class="numbers">${main}${bonusText}</span><span>${time}</span>`;
+      historyList.prepend(item);
+      while (historyList.children.length > 10) {
+        historyList.removeChild(historyList.lastChild);
+      }
+    };
+
+    const handleDraw = () => {
+      const result = drawNumbers();
+      renderBalls(result);
+      addHistory(result);
+    };
+
+    drawBtn.addEventListener("click", handleDraw);
+
+    copyBtn.addEventListener("click", async () => {
+      const balls = [...ballWrap.querySelectorAll(".ball")].map((b) => b.textContent);
+      if (!balls.length) return;
+      const text = balls.join(", ");
+      try {
+        await navigator.clipboard.writeText(text);
+        copyBtn.textContent = "복사 완료!";
+        setTimeout(() => (copyBtn.textContent = "결과 복사"), 1200);
+      } catch {
+        copyBtn.textContent = "복사 실패";
+        setTimeout(() => (copyBtn.textContent = "결과 복사"), 1200);
+      }
+    });
+
+    clearBtn.addEventListener("click", () => {
+      historyList.innerHTML = "";
+    });
+
+    setToday();
+    handleDraw();
+  </script>
 </body>
 </html>
