@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BOXIT | 관리자</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gmarket+Sans:wght@300;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div id="site-header"></div>
+
+    <div class="auth-card admin-panel" id="adminPanel">
+      <div class="auth-header">
+        <h1>관리자 패널</h1>
+        <p class="muted">메인 문구와 추천 상품을 관리하세요.</p>
+      </div>
+      <div class="notice success" id="adminNotice"></div>
+      <div class="notice error" id="adminError"></div>
+
+      <div class="admin-section card">
+        <h3>메인 문구 변경</h3>
+        <div class="form-grid">
+          <label class="field">
+            히어로 제목
+            <input type="text" id="heroTitleInput" placeholder="메인 제목">
+          </label>
+          <label class="field">
+            히어로 설명
+            <input type="text" id="heroSubtitleInput" placeholder="메인 설명">
+          </label>
+        </div>
+        <div class="actions" style="margin-top: 14px;">
+          <button class="btn primary" type="button" id="saveHero">저장</button>
+        </div>
+      </div>
+
+      <div class="admin-section card" style="margin-top: 20px;">
+        <h3>메인 로고 설정</h3>
+        <div class="form-grid">
+          <label class="field">
+            로고 이미지 URL
+            <input type="text" id="logoUrlInput" placeholder="https://... 또는 로컬 이미지 경로">
+          </label>
+        </div>
+        <div class="actions" style="margin-top: 14px;">
+          <button class="btn primary" type="button" id="saveLogo">저장</button>
+        </div>
+        <div class="logo-preview" id="logoPreview">
+          <img id="logoPreviewImage" alt="로고 미리보기" />
+        </div>
+      </div>
+
+      <div class="admin-section card" style="margin-top: 20px;">
+        <h3>메인 배너 설정</h3>
+        <div class="form-grid">
+          <label class="field">
+            배너 이미지 URL
+            <input type="text" id="bannerUrlInput" placeholder="https://... 또는 로컬 이미지 경로" required>
+          </label>
+        </div>
+        <div class="actions" style="margin-top: 14px;">
+          <button class="btn primary" type="button" id="saveBanner">저장</button>
+        </div>
+        <div class="banner-preview" id="bannerPreview">
+          <img id="bannerPreviewImage" alt="배너 미리보기" />
+        </div>
+      </div>
+
+      <div class="admin-section card" style="margin-top: 20px;">
+        <h3>추천 상품 관리</h3>
+        <form id="productForm">
+          <div class="form-grid admin-grid">
+            <label class="field">
+              상품 ID
+              <input type="text" id="productId" placeholder="예: BX-001" required>
+            </label>
+            <label class="field">
+              상품명
+              <input type="text" id="productName" placeholder="상품명" required>
+            </label>
+            <label class="field">
+              태그
+              <input type="text" id="productTag" placeholder="예: 인기">
+            </label>
+            <label class="field">
+              사이즈 문구
+              <input type="text" id="productSize" placeholder="예: 320 x 240 x 180 mm">
+            </label>
+            <label class="field">
+              가격
+              <input type="text" id="productPrice" placeholder="예: 12,000원" required>
+            </label>
+            <label class="field">
+              배지 문구
+              <input type="text" id="productBadge" placeholder="예: BEST">
+            </label>
+          </div>
+          <div class="actions" style="margin-top: 14px;">
+            <button class="btn primary" type="submit" id="productSave">상품 저장</button>
+            <button class="btn" type="button" id="productReset">폼 초기화</button>
+          </div>
+        </form>
+
+        <div class="admin-list" id="productList"></div>
+      </div>
+    </div>
+
+    <div id="site-footer"></div>
+  </div>
+
+  <script src="include.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BOXIT | 마이페이지</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gmarket+Sans:wght@300;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div id="site-header"></div>
+
+    <div class="auth-card" id="mypageView">
+      <div class="auth-header">
+        <h1>마이페이지</h1>
+        <p class="muted">회원 정보를 확인하세요.</p>
+      </div>
+      <div class="notice error" id="mypageNotice"></div>
+      <div class="form-grid" id="mypageInfo">
+        <div class="field">
+          <strong>아이디</strong>
+          <span id="mpUserId"></span>
+        </div>
+        <div class="field">
+          <strong>이름</strong>
+          <span id="mpName"></span>
+        </div>
+        <div class="field">
+          <strong>이메일</strong>
+          <span id="mpEmail"></span>
+        </div>
+        <div class="field">
+          <strong>휴대폰</strong>
+          <span id="mpPhone"></span>
+        </div>
+      </div>
+      <div class="actions" style="margin-top: 18px;">
+        <button class="btn" type="button" id="mypageLogout">로그아웃</button>
+      </div>
+    </div>
+
+    <div id="site-footer"></div>
+  </div>
+
+  <script src="include.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
