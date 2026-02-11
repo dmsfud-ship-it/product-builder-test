@@ -11,10 +11,6 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="site-header">
-    <div class="bx-hd-skeleton"></div>
-  </div>
-  <script type="module" src="/components/header.js"></script>
   <div class="container">
 
     <div class="auth-card">
@@ -32,11 +28,7 @@
           </label>
           <label class="field">
             아이디 *
-            <div class="inline-check">
-              <input type="text" id="username" placeholder="아이디 입력" required>
-              <button type="button" class="btn" id="idCheckBtn">중복체크</button>
-            </div>
-            <span class="status" id="idStatus"></span>
+            <input type="text" id="userId" placeholder="아이디 입력" required>
           </label>
           <label class="field">
             이름 *
@@ -45,23 +37,18 @@
           </label>
           <label class="field">
             이메일 *
-            <div class="inline-check">
-              <input type="email" id="email" placeholder="boxit@email.com" required>
-              <button type="button" class="btn" id="emailCheckBtn">중복체크</button>
-            </div>
-            <span class="status" id="emailStatus"></span>
+            <input type="email" id="email" placeholder="boxit@email.com" required>
           </label>
           <label class="field">
             비밀번호 *
-            <input type="password" id="password" placeholder="8자 이상" required>
-            <span class="status" id="pwRuleStatus"></span>
+            <input type="password" id="pw" placeholder="8자 이상" required>
           </label>
           <label class="field">
             비밀번호 재입력 *
-            <input type="password" id="passwordConfirm" placeholder="비밀번호 재입력" required>
-            <span class="status" id="pwStatus"></span>
+            <input type="password" id="pwConfirm" placeholder="비밀번호 재입력" required>
           </label>
         </div>
+        <span class="status" id="signupStatus"></span>
         <div class="actions" style="margin-top: 18px;">
           <button class="btn primary" type="submit" id="signupBtn">가입 완료</button>
           <button class="btn" type="button">취소</button>
@@ -72,8 +59,6 @@
     <div id="site-footer"></div>
   </div>
 
-  <script src="include.js"></script>
-  <script src="main.js"></script>
   <script type="module" src="signup.js"></script>
 </body>
 </html>

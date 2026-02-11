@@ -16,10 +16,15 @@
   </div>
   <script type="module" src="/components/header.js"></script>
   <script type="module">
-    import { auth, onAuthStateChanged } from "/firebase.js";
-    onAuthStateChanged(auth, (user) => {
-      console.log("[auth state]", user ? "IN" : "OUT", user?.uid);
-    });
+import { watchAuth, logout } from "./auth.js";
+
+watchAuth(user => {
+  if (!user) {
+    window.location.href = "login.html";
+  }
+});
+
+document.getElementById("logoutBtn")?.addEventListener("click", logout);
   </script>
   <div class="container">
     <section class="banner-wrap" id="bannerSection">

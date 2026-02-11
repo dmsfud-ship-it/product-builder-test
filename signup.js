@@ -1,76 +1,28 @@
-import {
-  auth,
-  db,
-  createUserWithEmailAndPassword,
-  doc,
-  setDoc,
-  serverTimestamp,
-} from "./firebase.js";
+import { signup } from "./auth.js";
 
-const signupForm = document.getElementById("signupForm");
-const signupBtn = document.getElementById("signupBtn");
-const notice = document.getElementById("signupNotice");
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("signupForm");
+  const status = document.getElementById("signupStatus");
 
-const getValue = (id) => {
-  const el = document.getElementById(id);
-  return el ? el.value.trim() : "";
-};
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-const showNotice = (message, isError = false) => {
-  if (!notice) return;
-  notice.textContent = message;
-  notice.style.display = "block";
-  notice.classList.toggle("error", isError);
-  notice.classList.toggle("success", !isError);
-};
+    const userId = document.getElementById("userId").value.trim();
+    const pw = document.getElementById("pw").value.trim();
+    const pwConfirm = document.getElementById("pwConfirm").value.trim();
 
-const handleSignup = async (e) => {
-  e.preventDefault();
+    if (pw !== pwConfirm) {
+      status.textContent = "비밀번호가 일치하지 않습니다.";
+      return;
+    }
 
-  const phone = getValue("phone");
-  const username = getValue("username");
-  const name = getValue("name");
-  const email = username ? `${username}@boxit.com` : "";
-  const password = getValue("password");
-  const passwordConfirm = getValue("passwordConfirm");
-
-  if (!phone || !username || !name || !email || !password || !passwordConfirm) {
-    showNotice("필수 항목을 모두 입력해 주세요.", true);
-    return;
-  }
-
-  if (password !== passwordConfirm) {
-    showNotice("비밀번호가 일치하지 않습니다.", true);
-    return;
-  }
-
-  try {
-    const result = await createUserWithEmailAndPassword(auth, email, password);
-    const { user } = result;
-
-    await setDoc(doc(db, "users", user.uid), {
-      uid: user.uid,
-      email,
-      username,
-      name,
-      phone,
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
-    });
-
-    showNotice("회원가입이 완료되었습니다.", false);
-    if (signupForm) signupForm.reset();
-  } catch (err) {
-    console.error(err);
-    const message = err?.message || "회원가입에 실패했습니다.";
-    showNotice(message, true);
-  }
-};
-
-if (signupBtn) {
-  signupBtn.addEventListener("click", handleSignup);
-}
-
-if (signupForm) {
-  signupForm.addEventListener("submit", handleSignup);
-}
+    try {
+      await signup(userId, pw);
+      status.textContent = "회원가입 성공!";
+      window.location.href = "login.html";
+    } catch (err) {
+      status.textContent = "이미 존재하는 아이디";
+      console.error(err);
+    }
+  });
+});
