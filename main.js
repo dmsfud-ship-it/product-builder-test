@@ -75,7 +75,7 @@ const markStatus = (el, ok, message) => {
   }
 };
 
-if (signupForm) {
+if (signupForm && signupForm.dataset.firebase !== 'true') {
   const idCheckBtn = document.getElementById('idCheckBtn');
   const emailCheckBtn = document.getElementById('emailCheckBtn');
   const phone = document.getElementById('phone');
@@ -291,7 +291,7 @@ if (signupForm) {
   });
 }
 
-if (loginForm) {
+if (loginForm && loginForm.dataset.firebase !== 'true') {
   const loginStatus = document.getElementById('loginStatus');
   const loginNotice = document.getElementById('loginNotice');
   const signupSuccess = document.getElementById('signupSuccess');
@@ -342,7 +342,7 @@ if (loginForm) {
 }
 
 const mypageView = document.getElementById('mypageView');
-if (mypageView) {
+if (mypageView && mypageView.dataset.firebase !== 'true') {
   const notice = document.getElementById('mypageNotice');
   const info = document.getElementById('mypageInfo');
   const logoutBtn = document.getElementById('mypageLogout');

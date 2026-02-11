@@ -1,0 +1,140 @@
+.bx-hd {
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: #111;
+}
+
+.bx-hd__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+}
+
+.bx-hd__top {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.bx-hd__top .bx-hd__inner {
+  justify-content: flex-end;
+  height: 32px;
+}
+
+.bx-hd__links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 13px;
+}
+
+.bx-hd__link {
+  color: #333;
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.bx-hd__link:hover {
+  color: #111;
+}
+
+.bx-hd__link--btn {
+  font: inherit;
+}
+
+.bx-hd__logoRow {
+  height: 96px;
+}
+
+.bx-hd__logoRow .bx-hd__inner {
+  justify-content: center;
+  height: 96px;
+}
+
+.bx-hd__logo {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bx-hd__logo img {
+  height: 72px;
+  width: auto;
+  display: block;
+}
+
+.bx-hd__logoText {
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #111;
+}
+
+.bx-hd__navRow {
+  padding-bottom: 12px;
+}
+
+.bx-hd__navRow .bx-hd__inner {
+  justify-content: center;
+}
+
+.bx-hd__pill {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 18px;
+  height: 56px;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  background: #fff;
+  padding: 0 16px;
+}
+
+.bx-hd__hamburger {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #111;
+}
+
+.bx-hd__nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: nowrap;
+}
+
+.bx-hd__navLink {
+  font-size: 14px;
+  color: #333;
+  text-decoration: none;
+}
+
+.bx-hd__navLink:hover {
+  color: #111;
+}
+
+.bx-hd__navLink.active {
+  font-weight: 700;
+  color: #111;
+}
+
+.bx-hd__hidden {
+  display: none !important;
+}
+
+.bx-hd-skeleton {
+  height: 240px;
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
+}
